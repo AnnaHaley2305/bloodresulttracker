@@ -125,7 +125,7 @@
       }
 
  ?>
-<div class="container-fluid">
+<div class="container-fluid container-body">
   <div class="row">
     <div class="col-sm-8 col-xs-12 col-md-6" >
      <form class="form-horizontal" role="form" action="myAccount.php" method="post">

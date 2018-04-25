@@ -80,7 +80,7 @@
   <p>Here you can input and notes</p>
 </div>
 
-<div class="container-fluid">
+<div class="container-fluid container-body">
    <p> Here you can enter notes about anything you think may have affected your blood results e.g. Hospital Admissions, Life Events or Medication Changes</p>
    <p> To enter a note please fill in the form below</p>
   <div class="row">

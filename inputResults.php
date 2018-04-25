@@ -202,7 +202,7 @@ function validateDate()
   <p>Here you can input your blood results</p>
 </div>
 
-<div class="container-fluid">
+<div class="container-fluid container-body">
 	<div class="row">
 		<p> Fill in the form below to add your test result </p>
 		<div class="col-md-6 col-lg-6 col-xs-12 col-sm-12">

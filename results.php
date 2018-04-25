@@ -87,7 +87,7 @@
   <p>Here you can view and edit your blood results</p>
 </div>
 
-<div class="container-fluid">
+<div class="container-fluid container-body">
    <div class="row">
    	<div class="col-sm-12 col-xs-12 col-md-12 col-lg-12" >
        <div class="table-responsive">

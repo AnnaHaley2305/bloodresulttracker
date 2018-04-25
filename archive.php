@@ -66,7 +66,7 @@
   <p>Here you can view archived blood results</p>
 </div>
 
-<div class="container-fluid">
+<div class="container-fluid container-body">
    <div class="row">
    	<div class="col-sm-8 col-xs-12 col-md-10" >
        <div class="table-responsive">

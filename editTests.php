@@ -118,7 +118,7 @@
   <p>Add categories, tests and ranges</p>
 </div>
 
-<div class="container-fluid">
+<div class="container-fluid container-body">
 	  <form class="form-horizontal" role="form" action="editTests.php" method="post">
 		 <fieldset>
 			<legend>Add Category</legend>

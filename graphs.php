@@ -410,7 +410,7 @@ $(document).ready(function () {
 </script>
 
 
-<div class="container-fluid">
+<div class="container-fluid container-body">
 	<div class="row">
 		<h3 id="header1"> Choose a different test to see more results </h3>
 		<h3 id="header2"> Choose a test to see some results </h3>
