@@ -26,6 +26,8 @@
       </button>
       <a class="navbar-brand" href="homepage.php"><img src="img/Logo3" width="250" height="30"></a>
     </div>
+    <?php if(isset($_SESSION['currentUserID']))
+    {?>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav navbar-right">
         <li><a href="homepage.php">My Dashboard</a></li>
@@ -48,6 +50,8 @@
 		</li>
 	</div>
       </ul>
+      <?php
+      }?>
     </div>
   </div>
 </nav>
@@ -154,7 +158,56 @@
          </div>
        </div>
      </div>
-</div>
+     <h3>Login/Register</h3>
+     <div class="panel-group">
+       <div class="panel panel-default">
+         <div class="panel-heading">
+           <h4 class="panel-title">
+             <a data-toggle="collapse" href="#collapse9">What happens if I forget my password?</a>
+           </h4>
+         </div>
+         <div id="collapse9" class="panel-collapse collapse">
+           <div class="panel-body">If you have forgotten your password you can reset it using the forgot
+          password link on the login page </div>
+         </div>
+       </div>
+       <div class="panel panel-default">
+         <div class="panel-heading">
+           <h4 class="panel-title">
+             <a data-toggle="collapse" href="#collapse10">Why do I need to provide my date of birth?</a>
+           </h4>
+         </div>
+         <div id="collapse10" class="panel-collapse collapse">
+           <div class="panel-body">This is used to verify that you are over 18 </div>
+         </div>
+       </div>
+       <div class="panel panel-default">
+         <div class="panel-heading">
+           <h4 class="panel-title">
+             <a data-toggle="collapse" href="#collapse11">Why do I need to provide my Postcode</a>
+           </h4>
+         </div>
+         <div id="collapse11" class="panel-collapse collapse">
+           <div class="panel-body">This is used to verify your identity incase you forget your password </div>
+         </div>
+       </div>
+    </div>
+    <h3>Notes</h3>
+    <div class="panel-group">
+      <div class="panel panel-default">
+         <div class="panel-heading">
+           <h4 class="panel-title">
+             <a data-toggle="collapse" href="#collapse12">What are notes used for?</a>
+           </h4>
+         </div>
+         <div id="collapse12" class="panel-collapse collapse">
+           <div class="panel-body">Notes are used to show any changes in your life that might have affected your
+             blood results for example life events, medication changes or hospital admissions</div>
+         </div>
+       </div>
+     </div>
+     </div>
+
 <footer class="container-fluid">
   <div class="col-sm-4 col-xs-4 col-md-4 col-lg-4 text-left">
      <h5> Useful Links </h5>
