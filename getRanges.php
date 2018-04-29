@@ -1,6 +1,6 @@
 <?php
 
-include ("dbConnect.php");
+include ("resources/dbConnect.php");
 
 session_start();
 $userID = $_SESSION['currentUserID'];

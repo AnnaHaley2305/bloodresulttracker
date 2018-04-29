@@ -319,7 +319,7 @@
 		  <li><a href="help">Help</a></li>
 			 <li><a href="myAccount">My Account</a></li>
 			 <li><a href="logout">Logout</a></li>
-		  <li><a href="archive">Archive</a></li>
+		  
 		  </ul>
 		</li>
 	</div>
@@ -498,7 +498,7 @@ $(document).ready(function () {
 	  </div>
 	  <div class="col-sm-4 col-xs-4 col-md-4 col-lg-4 text-right">
 			<h5> About Us </h5>
-			<a href="mailto:admin@mybloodresulttracker.com?Subject=Contact%20Us">Contact Us</a>
+			<a href="mailto:admin@mybloodresulttracker.co.uk?Subject=Contact%20Us">Contact Us</a>
 			<p>&copy; 2018</p>
 	  </div>
 	</footer>

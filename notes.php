@@ -5,7 +5,7 @@
       header("Location: login.php");
     }
 
-   include ("dbConnect.php");
+   include ("resources/dbConnect.php");
    if (isset($_POST["action"]) && $_POST["action"]=="deleteNotes") {
      $dbQuery=$db->prepare("delete from notes where noteID=:id");
      $dbParams = array('id'=>$_POST["noteID"]);
@@ -21,7 +21,27 @@
      $message = "Successfully Deleted";
      echo "<script type='text/javascript'>alert('$message');</script>";
 }
-   // the above headers will prevent the page output from being cached
+if (isset($_POST["submit"])) {
+         $userID=$_SESSION['currentUserID'];
+         $note = $_POST["note"];
+         $startDate=$_POST["start-date"];
+         $endDate=$_POST["end-date"];
+         $dbQuery=$db->prepare("insert into notes values(null, :user, :noteName, :startDate, :endDate)");
+         $dbParams=array('user'=>$userID,'noteName'=>$note, 'startDate'=>$startDate, 'endDate'=>$endDate);
+         $dbQuery->execute($dbParams);
+         if(!$dbQuery)
+         {
+            $message = "Oops, Something went wrong! Error";
+            $errors = $dbQuery->errorInfo();
+            $userError = $errors[2];
+            echo "<script type='text/javascript'>alert('$message.' '.$userError');</script>";
+            header("Location: graphs.php");
+         }
+      }
+   $userID=$_SESSION['currentUserID'];
+   $dbQuery=$db->prepare("select * from notes where userID=:userID order by startDate asc");
+   $dbParams = array('userID'=>$userID);
+   $dbQuery->execute($dbParams);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -31,7 +51,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <link rel="stylesheet" href="css/stylesheet.css">
-  <link rel="icon" href="images/heart-beat-icon.png">
+  <link rel="icon" href="img/heart-beat-icon.png">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
@@ -48,7 +68,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="homepage.php"><img src="images/Logo3" width="250" height="30"></a>
+      <a class="navbar-brand" href="homepage.php"><img src="img/Logo3" width="250" height="30"></a>
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav navbar-right">
@@ -57,16 +77,17 @@
         <ul class="dropdown-menu">
           <li><a href="inputResults">Input Results</a></li>
           <li><a href="results">Show Results</a></li>
+          <li><a href="archive">Archive</a></li>
         </ul>
 		</li>
         <li><a href="graphs.php">My Graphs</a></li>
         <li><a href="notes.php">My Notes</a></li>
-        <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Help <span class="caret"></span></a>
+        <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">More <span class="caret"></span></a>
         <ul class="dropdown-menu">
 		  <li><a href="help">Help</a></li>
           <li><a href="myAccount">My Account</a></li>
           <li><a href="logout">Logout</a></li>
-		  <li><a href="archive">Archive</a></li>
+
         </ul>
 		</li>
 	</div>
@@ -117,27 +138,7 @@
         <div class="table-responsive col-sm-8 col-xs-12 col-md-6">
          <table class ="table table-hover table-responsive table-bordered">
 
-         	<?php	if (isset($_POST["submit"])) {
-                     $userID=$_SESSION['currentUserID'];
-                     $note = $_POST["note"];
-                     $startDate=$_POST["start-date"];
-                     $endDate=$_POST["end-date"];
-                     $dbQuery=$db->prepare("insert into notes values(null, :user, :noteName, :startDate, :endDate)");
-                     $dbParams=array('user'=>$userID,'noteName'=>$note, 'startDate'=>$startDate, 'endDate'=>$endDate);
-                     $dbQuery->execute($dbParams);
-                     if(!$dbQuery)
-                     {
-                        $message = "Oops, Something went wrong! Error";
-         	 				$errors = $dbQuery->errorInfo();
-         	 				$userError = $errors[2];
-         	 				echo "<script type='text/javascript'>alert('$message.' '.$userError');</script>";
-         	 				header("Location: graphs.php");
-                     }
-         		   }
-               $userID=$_SESSION['currentUserID'];
-               $dbQuery=$db->prepare("select * from notes where userID=:userID order by startDate asc");
-               $dbParams = array('userID'=>$userID);
-               $dbQuery->execute($dbParams);
+         	<?php
                if($dbQuery)
                {
                   if ($dbQuery->rowCount()>0)
@@ -199,7 +200,7 @@
      </div>
      <div class="col-sm-4 col-xs-4 col-md-4 col-lg-4 text-right">
          <h5> About Us </h5>
-         <a href="mailto:admin@mybloodresulttracker.com?Subject=Contact%20Us">Contact Us</a>
+         <a href="mailto:admin@mybloodresulttracker.co.uk?Subject=Contact%20Us">Contact Us</a>
          <p>&copy; 2018</p>
      </div>
    </footer>

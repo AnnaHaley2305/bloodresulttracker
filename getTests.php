@@ -1,6 +1,6 @@
 <?php
 
-include ("dbConnect.php");
+include ("resources/dbConnect.php");
 
 $categoryID = $_POST['id'];   // idment id
 

@@ -12,7 +12,7 @@
 		$formUser=$_POST["username"];
 		$formPass=$_POST["password"];
 
-		include("dbConnect.php");
+		include("resources/dbConnect.php");
 		$dbQuery=$db->prepare("select * from users where username=:formUser");
 		$dbParams = array('formUser'=>$formUser);
 		$dbQuery->execute($dbParams);
@@ -89,7 +89,7 @@
 
 		$formUser=$_POST["username"];
 
-		include("dbConnect.php");
+		include("resources/dbConnect.php");
 		$dbQuery=$db->prepare("select * from users where username=:formUser");
 		$dbParams = array('formUser'=>$formUser);
 		$dbQuery->execute($dbParams);
@@ -178,7 +178,7 @@
   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-responsive.css" rel="stylesheet">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <link rel="stylesheet" href="css/stylesheet.css">
-  <link rel="icon" href="images/heart-beat-icon.png">
+  <link rel="icon" href="img/heart-beat-icon.png">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
@@ -195,7 +195,7 @@
 		  <span class="icon-bar"></span>
 		  <span class="icon-bar"></span>
 		</button>
-		<a class="navbar-brand" href="homepage.php"><img src="images/Logo3" width="250" height="30"></a>
+		<a class="navbar-brand" href="homepage.php"><img src="img/Logo3" width="250" height="30"></a>
 	 </div>
 	 </div>
   </div>
