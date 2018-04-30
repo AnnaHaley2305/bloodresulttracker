@@ -42,6 +42,7 @@
   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
   <script type="text/javascript" src="https://www.google.com/jsapi"></script>
   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+  <script src="js/password"type="text/javascript"></script>
 </head>
 <body id="resetPasswordPage" >
 
@@ -58,25 +59,7 @@
 	 </div>
   </div>
 </nav>
-<script type="text/javascript">
-function checkPasswords()
-{
-    var password = document.getElementById("password");
-    var passwordConfirm= document.getElementById("confirm-password");
-    var message = document.getElementById("message");
-    if(password.value == passwordConfirm.value){
-		  passwordConfirm.setCustomValidity('');
-        message.innerHTML = "<span class=\"alert alert-success\" style=\"margin-top: 15px; padding: 0;\">Passwords Match</span>";
-		  return true;
-    }else{
-		  passwordConfirm.setCustomValidity("Passwords Don't Match");
-        message.innerHTML = "<span class=\"alert alert-danger\" style=\"margin-top: 15px; padding: 0;\">Passwords Don't Match</span>";
-		  return false;
-    }
-}
 
-
-</script>
 <div class="jumbotron text-center">
   <h1>Blood Results Tracker</h1>
   <p>Password Reset</p>
@@ -100,7 +83,7 @@ function checkPasswords()
 					<div class="row">
 						<div class="col-sm-6 col-sm-offset-3">
 				  			<input type="hidden" name="action" value="resetPassword">
-							<input type="submit" name="reset-submit" id="reset-submit" class="form-control btn-info" value="Reset Password">
+							<button type="submit" name="reset-submit" id="reset-submit" class="btn btn-success" ><span class='glyphicon glyphicon-ok'></span> Reset Password</button>
 						</div>
 					</div>
 				</div>
