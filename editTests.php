@@ -126,7 +126,7 @@
 			  <label class="col-sm-2 control-label" for="category">Category</label>
 			  <div class="col-sm-9 col-md-4">
 				 <div class="form-group">
-					 <input type="text" class="form-control" name="category" id="category" placeholder="Category" required>
+					 <input type="text" class="form-control" name="category" id="category" placeholder="Category" maxlength="40" required>
 				  </div>
 				</div>
 			  </div>
@@ -172,7 +172,7 @@
 			<label class="col-sm-2 control-label" for="test">Test</label>
 			<div class="col-sm-9 col-md-4">
 			 <div class="form-group">
-				 <input type="text" class="form-control" name="test" id="test" placeholder="Test" required>
+				 <input type="text" class="form-control" name="test" id="test" placeholder="Test" required maxlength="40">
 			 </div>
 			 </div>
 			</div>
@@ -180,7 +180,7 @@
 				<label class="col-sm-2 control-label" for="unit">Unit</label>
 				<div class="col-sm-9 col-md-4">
 				 <div class="form-group">
-					 <input type="text" class="form-control" name="unit" id="unit" placeholder="Unit" required>
+					 <input type="text" class="form-control" name="unit" id="unit" placeholder="Unit" required maxlength="10">
 				 </div>
 				 </div>
 				</div>
@@ -238,7 +238,7 @@
 				<label class="col-sm-2 control-label" for="startAge">Start Age</label>
 				<div class="col-sm-9 col-md-4">
 				 <div class="form-group">
-					 <input type="text" class="form-control" name="startAge" id="startAge" placeholder="Start Age" required>
+					 <input type="number" class="form-control" name="startAge" id="startAge" min="18" max="120"placeholder="Start Age" required>
 				 </div>
 				 </div>
 			</div>
@@ -246,7 +246,7 @@
 				<label class="col-sm-2 control-label" for="endAge">End Age</label>
 				<div class="col-sm-9 col-md-4">
 				 <div class="form-group">
-					 <input type="text" class="form-control" name="endAge" id="endAge" placeholder="End Age" required>
+					 <input type="number" class="form-control" name="endAge" id="endAge" min="18" max="120" placeholder="End Age" required>
 				 </div>
 				 </div>
 				</div>
@@ -254,7 +254,7 @@
 				<label class="col-sm-2 control-label" for="lowRange">Low Range</label>
 				<div class="col-sm-9 col-md-4">
 				 <div class="form-group">
-					 <input type="text" class="form-control" name="lowRange" id="lowRange" placeholder="Low Range" required>
+					 <input type="number" class="form-control" name="lowRange" id="lowRange" max="999" placeholder="Low Range" required>
 				 </div>
 				 </div>
 				</div>
@@ -262,7 +262,7 @@
 				<label class="col-sm-2 control-label" for="highRange">High Range</label>
 				<div class="col-sm-9 col-md-4">
 				 <div class="form-group">
-					 <input type="text" class="form-control" name="highRange" id="highRange" placeholder="High Range" required>
+					 <input type="number" class="form-control" name="highRange" id="highRange" max="999" placeholder="High Range" required>
 				 </div>
 				 </div>
 				</div>
