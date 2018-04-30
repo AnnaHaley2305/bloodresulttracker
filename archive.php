@@ -5,6 +5,44 @@
   {
     header("Location: login.php");
   }
+
+  if (isset($_POST["action"]) && $_POST["action"]=="restore") {
+    $dbQuery=$db->prepare("insert into results select null, userID, testID, rangeID, result, date, outcome, comments from archive where archiveID=:id");
+    $dbParams = array('id'=>$_POST["archiveID"]);
+    $dbQuery->execute($dbParams);
+    if($dbQuery)
+    {
+       $dbQuery2=$db->prepare("delete from archive where archiveID=:id");
+       $dbParams2 = array('id'=>$_POST["archiveID"]);
+       $dbQuery2->execute($dbParams2);
+       if($dbQuery2)
+       {
+          $message = "Successfully Restored";
+          echo "<script type='text/javascript'>alert('$message');</script>";
+       }
+       else {
+        $message = "Oops, Something went wrong! Error";
+        $errors = $dbQuery2->errorInfo();
+        $userError = $errors[2];
+        echo "<script type='text/javascript'>alert('$message.' '.$userError');</script>";
+        header("Location: archive.php");
+
+      }
+    }
+    else {
+      $message = "Oops, Something went wrong! Error";
+      $errors = $dbQuery->errorInfo();
+      $userError = $errors[2];
+      echo "<script type='text/javascript'>alert('$message.' '.$userError');</script>";
+      header("Location: archive.php");
+
+    }
+
+
+  }
+
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -86,7 +124,7 @@
                     {
                        ?>
                        <p> This is where your archived blood tests are stored </p>
-                        <table class ="table table-hover table-condensed table-responsive" id="resultsTable">
+                        <table class ="table table-hover table-condensed table-responsive" id="resultsTable"  style="padding: 0px">
                         <thead>
                         <tr><th>Category</th>
                            <th>Test</th>
@@ -95,6 +133,7 @@
                            <th>Date</th>
                            <th>Outcome</th>
                            <th>Comments</th>
+                           <th>Restore</th>
                        </tr></thead>
                        <?php
                        while ($dbRow=$dbQuery->fetch(PDO::FETCH_ASSOC)) {
@@ -108,6 +147,15 @@
                 			     <td value="<?php echo $dbRow["testName"];?>"> <?php echo $dbRow["date"];?></td>
                 			     <td value="<?php echo $dbRow["testName"];?>"> <?php echo $dbRow["outcome"];?></td>
                    			  <td value="<?php echo $dbRow["comments"];?>"> <?php echo $dbRow["comments"]?></td>
+                             <td>
+                              <form class="text-center" method="post" action="archive.php">
+                                 <input type="hidden" name="action" value="restore">
+                                 <input type="hidden" name="archiveID" value="<?php echo $dbRow['archiveID'];?>">
+                                 <button type="submit" class="btn btn-danger">
+                                      <i class="glyphicon glyphicon-share"></i> Undo Archive
+                                </button>
+                              </form>
+                           </td>
                 			  </tr>
                         <?php
                         }

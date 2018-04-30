@@ -22,7 +22,6 @@ h4 {
 
 
 table {
-	padding: 25px;
 	border-bottom: 1px solid #2cb3d6;
 	width: 100%;
 	text-align: center
@@ -41,10 +40,11 @@ td{
 
 }
 
-.btn-success{
-  background-color: #A2C8A2;
-  border-color: #E5EEE5;
+.dt-buttons
+{
+   padding: 15px;
 }
+
 .center {
 	text-align:center
 }
@@ -74,6 +74,9 @@ footer p {
 .container-fluid {
   padding: 25px 25px;
 }
+.container-fluid.container-body{
+   min-height: 500px !important;
+}
 .bg-grey {
 	background-color: #f6f6f6;
 }
@@ -81,9 +84,9 @@ footer p {
 	background-color: #D6FFBE;
 }
 
-.panel-homepage {
-    border: 1px solid #D6FFBE;
-    border-radius:0;
+.panel {
+    border: 1px solid #2cb3d6;
+    border-radius:10px;
     transition: box-shadow 0.5s;
 }
 
@@ -91,15 +94,11 @@ footer p {
     box-shadow: 5px 0px 40px rgba(0,0,0, .2);
 }
 
-.panel-heading-homepage {
-    color: #fff !important;
-    background-color: #D6FFBE !important;
-    padding: 25px;
+.panel-heading {
+    background-color: #f6f6f6;
+    padding: 15px;
     border-bottom: 1px solid transparent;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-    border-bottom-left-radius: 5px;
-    border-bottom-right-radius: 5px;
+    border-radius:10px;
 }
 
 
@@ -136,6 +135,9 @@ footer p {
 }
 .navbar li a, .navbar .navbar-brand {
   color: #fff !important;
+}
+.navbar li a, .navbar .navbar-brand img{
+  max-width: 150%
 }
 
 .navbar-nav li a:hover, .navbar-nav li.active a {

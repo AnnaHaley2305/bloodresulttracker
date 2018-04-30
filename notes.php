@@ -21,27 +21,7 @@
      $message = "Successfully Deleted";
      echo "<script type='text/javascript'>alert('$message');</script>";
 }
-if (isset($_POST["submit"])) {
-         $userID=$_SESSION['currentUserID'];
-         $note = $_POST["note"];
-         $startDate=$_POST["start-date"];
-         $endDate=$_POST["end-date"];
-         $dbQuery=$db->prepare("insert into notes values(null, :user, :noteName, :startDate, :endDate)");
-         $dbParams=array('user'=>$userID,'noteName'=>$note, 'startDate'=>$startDate, 'endDate'=>$endDate);
-         $dbQuery->execute($dbParams);
-         if(!$dbQuery)
-         {
-            $message = "Oops, Something went wrong! Error";
-            $errors = $dbQuery->errorInfo();
-            $userError = $errors[2];
-            echo "<script type='text/javascript'>alert('$message.' '.$userError');</script>";
-            header("Location: graphs.php");
-         }
-      }
-   $userID=$_SESSION['currentUserID'];
-   $dbQuery=$db->prepare("select * from notes where userID=:userID order by startDate asc");
-   $dbParams = array('userID'=>$userID);
-   $dbQuery->execute($dbParams);
+   // the above headers will prevent the page output from being cached
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -57,6 +37,7 @@ if (isset($_POST["submit"])) {
   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
   <script type="text/javascript" src="https://www.google.com/jsapi"></script>
   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+  <script src="js/formValidation" type="text/javascript"></script>
 </head>
 <body id="notesPage" >
 
@@ -112,33 +93,53 @@ if (isset($_POST["submit"])) {
          <div class="form-group">
            <label class="col-sm-2 col-md-3 control-label" for="note">Note</label>
            <div class="col-sm-9 col-md-5">
-             <input class="form-control" type="text" name="note" id="note" length=25>
+             <input class="form-control" type="text" name="note" id="note" maxlength=25 required>
            </div>
          </div>
          <div class="form-group">
-           <label class="col-sm-2 col-md-3 control-label" for="start-date">Start Date</label>
+           <label class="col-sm-2 col-md-3 control-label" for="startDate">Start Date</label>
            <div class="col-sm-3 col-md-5">
-             <input type="date" class="form-control" name="start-date" id="start-date" placeholder="21/11/2017">
+             <input type="date" class="form-control" name="startDate" id="startDate" placeholder="21/11/2017" required>
            </div>
          </div>
          <div class="form-group">
-           <label class="col-sm-2 col-md-3 control-label" for="end-date">End Date</label>
+           <label class="col-sm-2 col-md-3 control-label" for="endDate">End Date</label>
            <div class="col-sm-3 col-md-5">
-             <input type="date" class="form-control" name="end-date" id="end-date" placeholder="21/11/2017">
+             <input type="date" class="form-control" name="endDate" id="endDate" placeholder="21/11/2017" required>
            </div>
          </div>
          <div class="form-group">
            <div class="col-sm-offset-2 col-sm-9">
-             <button type="submit" class="btn btn-success"  name="submit" >Submit</button>
+             <button type="submit" class="btn btn-success" onclick="validateDates()" name="submit" ><span class="glyphicon glyphicon-save"></span> Submit</button>
            </div>
          </div>
        </fieldset>
      </form>
    </div>
-        <div class="table-responsive col-sm-8 col-xs-12 col-md-6">
+        <div class="table-responsive col-sm-8 col-xs-12 col-md-6"  style="padding: 0px">
          <table class ="table table-hover table-responsive table-bordered">
 
-         	<?php
+         	<?php	if (isset($_POST["submit"])) {
+                     $userID=$_SESSION['currentUserID'];
+                     $note = $_POST["note"];
+                     $startDate=$_POST["startDate"];
+                     $endDate=$_POST["endDate"];
+                     $dbQuery=$db->prepare("insert into notes values(null, :user, :noteName, :startDate, :endDate)");
+                     $dbParams=array('user'=>$userID,'noteName'=>$note, 'startDate'=>$startDate, 'endDate'=>$endDate);
+                     $dbQuery->execute($dbParams);
+                     if(!$dbQuery)
+                     {
+                        $message = "Oops, Something went wrong! Error";
+         	 				$errors = $dbQuery->errorInfo();
+         	 				$userError = $errors[2];
+         	 				echo "<script type='text/javascript'>alert('$message.' '.$userError');</script>";
+         	 				header("Location: graphs.php");
+                     }
+         		   }
+               $userID=$_SESSION['currentUserID'];
+               $dbQuery=$db->prepare("select * from notes where userID=:userID order by startDate asc");
+               $dbParams = array('userID'=>$userID);
+               $dbQuery->execute($dbParams);
                if($dbQuery)
                {
                   if ($dbQuery->rowCount()>0)
@@ -158,7 +159,7 @@ if (isset($_POST["submit"])) {
                      <form class="text-center" method="post" action="notes.php">
                         <input type="hidden" name="action" value="deleteNotes">
                         <input type="hidden" name="noteID" value="<?php echo $dbRow['noteID'];?>">
-                        <button type="submit" class="btn btn-danger">
+                        <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete?');">
                              <i class="glyphicon glyphicon-trash"></i> Delete
                        </button>
                      </form>
