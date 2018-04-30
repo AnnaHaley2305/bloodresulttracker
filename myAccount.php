@@ -55,6 +55,7 @@
   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
   <script type="text/javascript" src="https://www.google.com/jsapi"></script>
   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+  <script src="js/userInfo" type="text/javascript"></script>
 </head>
 <body id="myAccountPage" >
 
@@ -145,13 +146,13 @@
          <div class="form-group">
            <label class="col-sm-2 col-md-3 control-label" for="firstname">Firstname:</label>
            <div class="col-sm-9 col-md-5">
-             <input class="form-control" type="text" name="firstname" id="firstname" value="<?php echo $firstname ?>">
+             <input class="form-control" type="text" name="firstname" id="firstname" value="<?php echo $firstname ?>" onkeyup = "Validate(this)" minlength="2" maxlength="20">
            </div>
          </div>
          <div class="form-group">
            <label class="col-sm-2 col-md-3 control-label" for="surname">Surname:</label>
            <div class="col-sm-9 col-md-5">
-             <input class="form-control" type="text" name="surname" id="surname" value="<?php echo $secondname ?>">
+             <input class="form-control" type="text" name="surname" id="surname" value="<?php echo $secondname ?>" onkeyup = "Validate(this)"  minlength="2" maxlength="20">
            </div>
          </div>
          <div class="form-group">
@@ -169,7 +170,10 @@
          <div class="form-group">
            <label class="col-sm-2 col-md-3 control-label" for="postcode">Postcode:</label>
            <div class="col-sm-9 col-md-5">
-             <input class="form-control" type="text" name="postcode" id="postcode" value="<?php echo $postcode ?>">
+             <input class="form-control" type="text" name="postcode" id="postcode" value="<?php echo $postcode ?>"
+             pattern="[A-Za-z]{1,2}[0-9][0-9A-Za-z]? [0-9][ABD-HJLNP-UW-Zabd-hjlnp-uw-z]{2}$"
+             oninvalid="this.setCustomValidity('Please provide a valid UK Postcode')"
+             oninput="this.setCustomValidity('')">
            </div>
          </div>
          <div class="form-group">
@@ -189,7 +193,7 @@
      <form class="inline" method="post" action="myAccount.php">
        <input type="hidden" name="action" value="deleteUser">
        <input type="hidden" name="userID" value="<?php $_SESSION['currentUserID'];?>">
-       <button type="submit" class="btn btn-danger">
+       <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete your account?');">
              <i class="glyphicon glyphicon-trash"></i> Delete User Account
      </button>
      </form>

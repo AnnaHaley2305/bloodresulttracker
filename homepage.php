@@ -90,8 +90,8 @@
       <p> My Blood Results Tracker offers a range of services to help you manage your blood results.</p>
       <br>
         <div class="col-sm-4">
-             <div class="panel panel-homepage">
-               <div class="panel-heading-homepage">
+             <div class="panel panel-default">
+               <div class="panel-heading">
                   <h4>View Graphs</h4>
                </div>
                <div class="panel-body">
@@ -103,8 +103,8 @@
           </div>
       </div>
         <div class="col-sm-4">
-            <div class="panel panel-homepage">
-               <div class="panel-heading-homepage">
+            <div class="panel panel-default">
+               <div class="panel-heading">
                   <h4>Add results</h4>
                </div>
                <div class="panel-body">
@@ -116,8 +116,8 @@
         </div>
         </div>
         <div class="col-sm-4">
-            <div class="panel panel-homepage">
-               <div class="panel-heading-homepage">
+            <div class="panel panel-default">
+               <div class="panel-heading">
                   <h4>View Results</h4>
                </div>
                <div class="panel-body">
@@ -131,8 +131,8 @@
    </div>
       <div class="row">
          <div class="col-sm-4">
-             <div class="panel panel-homepage">
-                <div class="panel-heading-homepage">
+             <div class="panel panel-default">
+                <div class="panel-heading">
                    <h4>My Account</h4>
                 </div>
                 <div class="panel-body">
@@ -144,8 +144,8 @@
          </div>
          </div>
          <div class="col-sm-4">
-             <div class="panel panel-homepage">
-                <div class="panel-heading-homepage">
+             <div class="panel panel-default">
+                <div class="panel-heading">
                    <h4>View Archive</h4>
                 </div>
                 <div class="panel-body">
@@ -157,8 +157,8 @@
          </div>
          </div>
          <div class="col-sm-4">
-             <div class="panel panel-homepage">
-                <div class="panel-heading-homepage">
+             <div class="panel panel-default">
+                <div class="panel-heading">
                    <h4>Add notes</h4>
                 </div>
                 <div class="panel-body">
