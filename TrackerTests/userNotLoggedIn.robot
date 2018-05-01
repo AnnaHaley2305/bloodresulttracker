@@ -16,7 +16,6 @@ Test login page is shown if user is not logged in
 Archive              archive.php
 EditTests            editTests.php    
 Graphs               graphs.php
-Help                 help.php
 Homepage             homepage.php
 Input Results        inputResults.php
 Logout               logout.php

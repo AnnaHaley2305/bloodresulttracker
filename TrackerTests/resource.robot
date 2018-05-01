@@ -11,12 +11,18 @@ ${website}    http://mybloodresulttracker.co.uk/
 ${browser}    chrome
 ${validUser}    jsmith
 ${validPassword}    password1
+${validUserPostcode}    BT56 1FD
+${validUserDOB}         03101994
 
 *** Keywords ***
 Open Browser To Login Page
     Open Browser    ${website}    ${browser}
     Maximize Browser Window
     Page ID Should Be   loginPage
+
+Open Browser To Login Page and Login
+    Open Browser To Login Page
+    Login
 
 Page ID Should Be
     [Arguments]    ${contains}

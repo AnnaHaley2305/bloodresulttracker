@@ -13,7 +13,7 @@ Navigate to archive once logged in as user
 
 Navigate to archive once logged in as user using buttons
     Login
-    Click Link    Help
+    Click Link    My Results
     Click Link    archive
     Page ID Should Be    archivePage
    
@@ -34,7 +34,7 @@ Navigate to help once logged in as user
 
 Navigate to help once logged in as user using buttons
     Login
-    Click Link    Help
+    Click Link    More
     Click Link    help
     Page ID Should Be    helpPage
 
@@ -56,7 +56,7 @@ Navigate to logout once logged in as user
 
 Navigate to logout once logged in as user using buttons
     Login
-    Click Link    Help
+    Click Link    More
     Click Link    logout
     Page ID Should Be    loginPage
 
@@ -67,7 +67,7 @@ Navigate to myAccount once logged in as user
     
 Navigate to myAccount once logged in as user using buttons
     Login
-    Click Link    Help
+    Click Link   More
     Click Link   myAccount
     Page ID Should Be    myAccountPage
     

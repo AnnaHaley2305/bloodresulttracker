@@ -13,6 +13,7 @@ ${validName}        Donald
 ${validSurname}     Trump
 ${validGender}      M
 ${validPostcode}    SW1A 1AA
+${validDOB}         03101994
 
 *** Keywords *** 
 Open Register Form
@@ -35,6 +36,9 @@ Register Firstname
 Register Lastname
     [Arguments]    ${args}
     Input text    secondname    ${args}
+Register DOB
+    [Arguments]    ${args}
+    Press Keys    dob    ${args}
 Register Gender
     [Arguments]    ${args}    
     Select From List By Label   gender    ${args} 
@@ -52,6 +56,7 @@ All values empty should fail
 	Register Firstname           ${empty}
 	Register Lastname            ${empty}
 	Register Postcode            ${empty}
+	Register DOB                 ${empty}
 	Submit Register
 	Page ID Should Be    loginPage
 
@@ -63,6 +68,7 @@ Empty username with all other valid should fail
 	Register Lastname            ${validSurname}
 	Register Gender              ${validGender}
 	Register Postcode            ${validPostcode}
+    Register DOB                 ${validDOB}
 	Submit Register
 	Page ID Should Be    loginPage
 
@@ -74,6 +80,7 @@ Empty password with all other valid should fail
 	Register Lastname            ${validSurname}
 	Register Gender              ${validGender}
 	Register Postcode            ${validPostcode}
+	Register DOB                 ${validDOB}
 	Submit Register
 	Page ID Should Be    loginPage
 
@@ -85,6 +92,7 @@ Empty confirm password with all other valid should fail
 	Register Lastname            ${validSurname}
 	Register Gender              ${validGender}
 	Register Postcode            ${validPostcode}
+    Register DOB                 ${validDOB}
 	Submit Register
 	Page ID Should Be    loginPage
 	
@@ -96,6 +104,7 @@ Empty name with all other valid should fail
 	Register Lastname            ${validSurname}
 	Register Gender              ${validGender}
 	Register Postcode            ${validPostcode}
+    Register DOB                 ${validDOB}
 	Submit Register
 	Page ID Should Be    loginPage
 
@@ -107,6 +116,7 @@ Empty surname with all other valid should fail
 	Register Lastname            ${empty}
 	Register Gender              ${validGender}
 	Register Postcode            ${validPostcode}
+    Register DOB                 ${validDOB}
 	Submit Register
 	Page ID Should Be    loginPage
 
@@ -128,6 +138,7 @@ Invalid postcode with all other valid should fail
 	Register Firstname           ${validName}
 	Register Lastname            ${validSurname}
 	Register Gender              ${validGender}
+    Register DOB                 ${validDOB}
 	Register Postcode            1234 567
 	Submit Register
 	Page ID Should Be    loginPage
@@ -143,6 +154,7 @@ Mismatched password with all other valid should fail
 	Register Lastname            ${validSurname}
 	Register Gender              ${validGender}
 	Register Postcode            ${validPostcode}
+    Register DOB                 ${validDOB}
 	Submit Register
 	Page ID Should Be    loginPage
 
@@ -154,6 +166,7 @@ Mismatched confirm password with all other valid should fail
 	Register Lastname            ${validSurname}
 	Register Gender              ${validGender}
 	Register Postcode            ${validPostcode}
+    Register DOB                 ${validDOB}
 	Submit Register
 	Page ID Should Be    loginPage
 
@@ -167,6 +180,7 @@ Mismatched password should produce alert
 	Register Lastname            ${validSurname}
 	Register Gender              ${validGender}
 	Register Postcode            ${validPostcode}
+    Register DOB                 ${validDOB}
 	Submit Register
 	Page ID Should Be    loginPage
 
@@ -178,6 +192,7 @@ Password too short with all other valid should fail
 	Register Lastname            ${validSurname}
 	Register Gender              ${validGender}
 	Register Postcode            ${validPostcode}
+    Register DOB                 ${validDOB}
 	Submit Register
 	Page ID Should Be    loginPage
 	
@@ -189,6 +204,7 @@ Password too long with all other valid should fail
 	Register Lastname            ${validSurname}
 	Register Gender              ${validGender}
 	Register Postcode            ${validPostcode}
+    Register DOB                 ${validDOB}
 	Submit Register
 	Page ID Should Be    loginPage
 	
@@ -200,6 +216,7 @@ Confirm password too short with all other valid should fail
 	Register Lastname            ${validSurname}
 	Register Gender              ${validGender}
 	Register Postcode            ${validPostcode}
+    Register DOB                 ${validDOB}
 	Submit Register
 	Page ID Should Be    loginPage
 	
@@ -211,6 +228,19 @@ Confrim password too long with all other valid should fail
 	Register Lastname            ${validSurname}
 	Register Gender              ${validGender}
 	Register Postcode            ${validPostcode}
+    Register DOB                 ${validDOB}
+	Submit Register
+	Page ID Should Be    loginPage
+	
+Date under age 18 should fail
+    Register Username            ${validUsername}
+	Register Password            ${validPassword}
+	Reigster Confirm Password    ${validPassword}
+	Register Firstname           ${validName}
+	Register Lastname            ${validSurname}
+	Register Gender              ${validGender}
+	Register Postcode            ${validPostcode}
+    Register DOB                 01012008
 	Submit Register
 	Page ID Should Be    loginPage
 	
@@ -222,5 +252,6 @@ Username already exists should create an alert
 	Register Lastname            ${validSurname}
 	Register Gender              ${validGender}
 	Register Postcode            ${validPostcode}
+    Register DOB                 ${validDOB}
 	Submit Register
 	Page Should Contain          That Username already exists, Please try again
