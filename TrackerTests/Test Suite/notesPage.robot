@@ -6,35 +6,40 @@ Suite Teardown    Close browser
 Test Setup    Go To Page    notes.php
 
 *** Test Cases ***
-Validate note date input with future date 
+Note date input with future date should fail
    Input text    note    Sample Note
    Press Key    startDate    23012018    
    Press Key    endDate    12122022
+   Click Button    submit    
    Page ID Should Be    notesPage
    Page Should Not Contain    Sample Note
    
-Validate note date input with start date after end date
+Note date input with start date after end date should fail
    Input text    note    Sample Note
    Press Key    startDate    23012018    
    Press Key    endDate    12122017
+   Click Button    submit   
    Page ID Should Be    notesPage
    Page Should Not Contain    Sample Note
 
-Validate Empty Note Name
+Empty Note Name Should Fail
    Input text    note    ${EMPTY}
    Press Key    startDate    23012018    
    Press Key    endDate    31012018
+   Click Button    submit   
    Page ID Should Be    notesPage
    Page Should Not Contain    2018-01-23
    
-Validate start date not chosen
+Start date not chosen should fail
    Input text    note    Sample Note 
    Press Key    endDate    31012018
+   Click Button    submit   
    Page ID Should Be    notesPage
    Page Should Not Contain    Sample Note
 
-Validate end date not chosen
+End date not chosen should fail
    Input text    note    Sample Note 
    Press Key    startDate    31012018
+   Click Button    submit   
    Page ID Should Be    notesPage
    Page Should Not Contain    Sample Note

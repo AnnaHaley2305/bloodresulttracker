@@ -38,7 +38,7 @@ Register Lastname
     Input text    secondname    ${args}
 Register DOB
     [Arguments]    ${args}
-    Press Keys    dob    ${args}
+    Press Key    dob    ${args}
 Register Gender
     [Arguments]    ${args}    
     Select From List By Label   gender    ${args} 
