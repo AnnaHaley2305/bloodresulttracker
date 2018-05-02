@@ -1,0 +1,7 @@
+*.png
+*/.
+*.project
+*.buildpath
+*.xml
+log.html
+report.html
