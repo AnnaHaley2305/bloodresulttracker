@@ -10,8 +10,20 @@
      $dbQuery=$db->prepare("delete from results where resultID=:id");
      $dbParams = array('id'=>$_POST["resultID"]);
      $dbQuery->execute($dbParams);
-     $message = "Successfully Deleted";
-     echo "<script type='text/javascript'>alert('$message');</script>";
+     if($dbQuery)
+     {
+        $message = "Successfully Deleted";
+        echo "<script type='text/javascript'>alert('$message');</script>";
+     }
+     else
+     {
+        $message = "Oops, Something went wrong! Error";
+        $errors = $dbQuery->errorInfo();
+        $userError = $errors[2];
+        echo "<script type='text/javascript'>alert('$message.' '.$userError');</script>";
+        header("Location: results.php");
+
+     }
 
 
    }
@@ -19,11 +31,33 @@
      $dbQuery=$db->prepare("insert into archive select null, userID, testID, rangeID, result, date, outcome, comments from results where resultID=:id");
      $dbParams = array('id'=>$_POST["resultID"]);
      $dbQuery->execute($dbParams);
-     $dbQuery2=$db->prepare("delete from results where resultID=:id");
-     $dbParams2 = array('id'=>$_POST["resultID"]);
-     $dbQuery2->execute($dbParams2);
-     $message = "Successfully Archived";
-     echo "<script type='text/javascript'>alert('$message');</script>";
+     if($dbQuery)
+     {
+        $dbQuery2=$db->prepare("delete from results where resultID=:id");
+        $dbParams2 = array('id'=>$_POST["resultID"]);
+        $dbQuery2->execute($dbParams2);
+        if($dbQuery2)
+        {
+           $message = "Successfully Archived";
+           echo "<script type='text/javascript'>alert('$message');</script>";
+        }
+        else {
+         $message = "Oops, Something went wrong! Error";
+         $errors = $dbQuery2->errorInfo();
+         $userError = $errors[2];
+         echo "<script type='text/javascript'>alert('$message.' '.$userError');</script>";
+         header("Location: results.php");
+
+       }
+     }
+     else {
+       $message = "Oops, Something went wrong! Error";
+       $errors = $dbQuery->errorInfo();
+       $userError = $errors[2];
+       echo "<script type='text/javascript'>alert('$message.' '.$userError');</script>";
+       header("Location: results.php");
+
+     }
 
 
    }
@@ -44,6 +78,13 @@
   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
   <script type="text/javascript" src="https://www.google.com/jsapi"></script>
   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+  <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+  <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.5.1/js/dataTables.buttons.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js "></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/pdfmake.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/vfs_fonts.js"></script>
+  <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.5.1/js/buttons.html5.min.js"></script>
 </head>
 <body id="resultsPage" >
 
@@ -87,6 +128,43 @@
   <h1>My Results</h1>
   <p>Here you can view and edit your blood results</p>
 </div>
+<script>
+$(document).ready(function() {
+    $('#tableData').DataTable( {
+        dom: 'Bfrtip',
+        buttons: [
+            {
+                extend: 'copy',
+                exportOptions: {
+                    columns: [ 0, 1, 2, 3, 4, 5, 6 ]
+                },
+                className: 'btn btn-success',
+                text: '<span class="glyphicon glyphicon-copy"></span> Copy'
+            },
+            {
+                extend: 'excel',
+                exportOptions: {
+                     columns: [ 0, 1, 2, 3, 4, 5, 6 ]
+                },
+                className: 'btn btn-success',
+                text: '<span class="glyphicon glyphicon-th-list"></span> Save as Excel'
+            },
+            {
+                extend: 'pdf',
+                exportOptions: {
+                    columns: [ 0, 1, 2, 3, 4, 5, 6 ]
+                },
+                className: 'btn btn-success',
+                text: '<span class="glyphicon glyphicon-save-file"></span> Save as PDF',
+            }
+        ],
+        paging: false
+    } );
+$('.dt-buttons').addClass('col-lg-6 col-md-6 col-sm-12 col-xs-12');
+$('.dataTables_filter').addClass('col-lg-6 col-md-6 col-sm-12 col-xs-12 text-right');
+$('.dataTables_filter input').addClass('form-control');
+} );
+</script>
 
 <div class="container-fluid container-body">
    <div class="row">
@@ -100,16 +178,21 @@
                   $dbParams = array('userID'=>$user);
        				$dbQuery->execute($dbParams);
                   if($dbQuery){
-          		     ?><tbody>
+          		     ?>
+
+
 
                     <?php if ($dbQuery->rowCount()>0)
                     {
                        ?>
                        <p> This is where your blood results are stored, you can delete or achive any results using the buttons</p>
                        <p> <b>Warning!</b> If you delete any results you cannot get them back again </p>
-                       <table class ="table table-hover table-condensed table-bordered" id="resultsTable">
+                       <p> You can restore your results from the archive at any time </p>
+                       <p> You can search through your results using the search box below</p>
+                       <table class ="table table-hover table-condensed table-bordered" style="padding: 0px" id="tableData">
                         <thead>
-                        <tr><th>Category</th>
+                        <tr>
+                           <th>Category</th>
                            <th>Test</th>
                            <th>Result</th>
                            <th>Unit</th>
@@ -119,6 +202,7 @@
                            <th>Delete</th>
                            <th>Archive</th>
                        </tr></thead>
+                       <tbody id="resultsTable">
                        <?php
                        while ($dbRow=$dbQuery->fetch(PDO::FETCH_ASSOC)) {
                           ?>
@@ -134,8 +218,8 @@
                                <form class="text-center" method="post" action="results.php">
                                   <input type="hidden" name="action" value="deleteResults">
                                   <input type="hidden" name="resultID" value="<?php echo $dbRow['resultID'];?>">
-                                  <button type="submit" class="btn btn-danger">
-                                       <i class="glyphicon glyphicon-trash"></i> Delete
+                                  <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete?');">
+                                       <i class="glyphicon glyphicon-trash" ></i> Delete
                                  </button>
                                </form>
                             </td>
@@ -144,13 +228,15 @@
                                  <input type="hidden" name="action" value="archive">
                                  <input type="hidden" name="resultID" value="<?php echo $dbRow['resultID'];?>">
                                  <button type="submit" class="btn btn-warning">
-                                      <i class="glyphicon glyphicon-share"></i>Archive
+                                      <i class="glyphicon glyphicon-share"></i> Archive
                                 </button>
                               </form>
                            </td>
+
                 			  </tr>
                         <?php
                         }
+
                      }
                         else{
                            echo '<div class="alert alert-info"><h3>Looks like you don\'t have any results to display yet</h3></div>';

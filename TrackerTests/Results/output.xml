@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generated="20180421 18:38:00.393" generator="Robot 3.0.3 (Python 2.7.14 on win32)">
+<suite source="C:\Users\annah\Documents\Eclipse\TrackerTests\tests.robot" id="s1" name="Tests">
+<test id="s1-t1" name="Open browser and website">
+<kw name="Open Browser" library="Selenium2Library">
+<doc>Opens a new browser instance to the given ``url``.</doc>
+<arguments>
+<arg>http://mybloodresulttracker.co.uk/</arg>
+<arg>chrome</arg>
+</arguments>
+<msg timestamp="20180421 18:38:00.510" level="INFO">Opening browser 'chrome' to base url 'http://mybloodresulttracker.co.uk/'.</msg>
+<kw name="Capture Page Screenshot" library="Selenium2Library">
+<doc>Takes screenshot of the current page and embeds it into log file.</doc>
+<msg timestamp="20180421 18:38:00.518" level="INFO">Cannot capture screenshot because no browser is open.</msg>
+<status status="PASS" endtime="20180421 18:38:00.519" starttime="20180421 18:38:00.517"></status>
+</kw>
+<msg timestamp="20180421 18:38:00.520" level="FAIL">WebDriverException: Message: 'chromedriver' executable needs to be in PATH. Please see https://sites.google.com/a/chromium.org/chromedriver/home
+</msg>
+<status status="FAIL" endtime="20180421 18:38:00.520" starttime="20180421 18:38:00.510"></status>
+</kw>
+<status status="FAIL" endtime="20180421 18:38:00.521" critical="yes" starttime="20180421 18:38:00.509">WebDriverException: Message: 'chromedriver' executable needs to be in PATH. Please see https://sites.google.com/a/chromium.org/chromedriver/home
+</status>
+</test>
+<status status="FAIL" endtime="20180421 18:38:00.522" starttime="20180421 18:38:00.395"></status>
+</suite>
+<statistics>
+<total>
+<stat fail="1" pass="0">Critical Tests</stat>
+<stat fail="1" pass="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat fail="1" id="s1" name="Tests" pass="0">Tests</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>

@@ -74,6 +74,7 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+  <script src="js/formValidation" type="text/javascript"> </script>
 </head>
 <body id="inputResultsPage" >
 
@@ -112,92 +113,6 @@
 	 </div>
   </div>
 </nav>
-<script type="text/javascript">
-
-$(document).ready(function() {
-  $("#category").change(function() {
-	 var categoryID = " ";
-	 categoryID = $(this).val();
-	 if(categoryID != "") {
-		$.ajax({
-		  url:"getTests.php",
-		  data:{id:categoryID},
-		  type: 'post',
-		  dataType:'json',
-		  success:function(response)
-		  {
-			 var len = response.length;
-			 $("#test").empty();
-			 for( var i = 0; i<len; i++)
-			 {
-				  var id = response[i]['id'];
-				  var name = response[i]['name'];
-				  $("#test").append("<option value='"+id+"'>"+name+"</option>");
-			 }
-		 }
-		});
-	 } else {
-		$("#test").html("<option value=''> -- select -- </option>");
-	 }
- });
- $("#test").change(function() {
-	var testID = " ";
-	testID = $(this).val();
-	if(testID != "")
-	{
-	  $.ajax({
-		url:"getRanges.php",
-		data:{id:testID},
-		type: 'post',
-		dataType:'json',
-		success:function(response)
-		{
-		 var len = response.length;
-		 $("#range").empty();
-			for( var i = 0; i<len; i++)
-			{
-				 var id = response[i]['id'];
-				 var name = response[i]['name'];
-				 $("#range").append("<option value='"+id+"'>"+name+"</option>");
-
-			}
-		}
-		})
-	}
-	else
-	{
-	  $("#range").html("<option value=''> -- select -- </option>");
-	}
-	}).click(function(){
-	if($('#test').length == 1)
-	{
-		$('#test').change();
-	}
-	});
-});
-
-$(document).ready(function(){
-    $('[data-toggle="popover"]').popover();
-});
-
-
-function validateDate()
-{
-	 var datePicker = document.getElementById("date");
-    var date = datePicker.value;
-    var today = new Date();
-	 var setDate = new Date(date)
-    if (setDate > today) {
-        datePicker.setCustomValidity("This date is in the future");
-		  return false;
-	  }
-	  else{
-		  datePicker.setCustomValidity('');
-		  return true;
-	  }
-}
-
-</script>
 <div class="jumbotron text-center">
   <h1>Input Results</h1>
   <p>Here you can input your blood results</p>
@@ -211,7 +126,8 @@ function validateDate()
 		 <fieldset>
 			<legend>Input Results</legend>
 			<div class="form-group">
-			  <label class="col-sm-2 control-label" for="category">Category</label>
+			  <label class="col-sm-2 control-label" for="category">Category </label>
+			  <a href="#categoryHelp" data-toggle="collapse" class="glyphicon glyphicon-info-sign"></a>
 			  <div class="col-sm-9 col-md-8">
 				 <select class="form-control col-sm-2 col-md-4" name="category" id="category" required>
 					<option value="">Category</option>
@@ -223,14 +139,19 @@ function validateDate()
 						}
 					?>
 				 </select>
+			  <div id="categoryHelp" class="collapse"> Choose the category for your test result
+			  </div>
 			  </div>
 			</div>
 			<div class="form-group">
-			  <label class="col-sm-2 col-md-2 control-label" for="test">Test Name</label>
+			  <label class="col-sm-2 col-md-2 control-label" for="test">Test Name </label>
+			  <a href="#testHelp" data-toggle="collapse" class="glyphicon glyphicon-info-sign"></a>
 			  <div class="col-sm-9 col-md-8 col-lg-8">
 				 <select class="form-control col-sm-2 col-md-4" name="test" id="test" required>
 					<option value="">Test</option>
 				 </select>
+				 <div id="testHelp" class="collapse"> Choose the test for your result,
+					 try looking in other categories if you can't find the test </div>
 			  </div>
 			</div>
 			<div class="form-group">
@@ -261,12 +182,12 @@ function validateDate()
 			<div class="form-group">
 			  <label class="col-sm-2 col-md-2 control-label" for="comment">Comment</label>
 			  <div class="col-sm-3 col-md-8">
-				 <input type="text" class="form-control" name="comment" id="comment" placeholder="Comment">
+				 <input type="text" class="form-control" name="comment" id="comment" placeholder="Comment" maxlength="40">
 			  </div>
 			</div>
 			<div class="form-group">
 			  <div class="col-sm-offset-2 col-sm-9 col-md-offset-2 col-md-4">
-				 <button type="submit" class="btn btn-success" name="submit">Submit</button>
+				 <button type="submit" class="btn btn-success" name="submit"><span class='glyphicon glyphicon-save'></span> Submit</button>
 			  </div>
 			</div>
 		 </fieldset>

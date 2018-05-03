@@ -1,3 +1,7 @@
+<?php
+	session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -26,6 +30,8 @@
       </button>
       <a class="navbar-brand" href="homepage.php"><img src="img/Logo3" width="250" height="30"></a>
     </div>
+    <?php if(isset($_SESSION['currentUserID']))
+    {?>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav navbar-right">
         <li><a href="homepage.php">My Dashboard</a></li>
@@ -38,7 +44,7 @@
 		</li>
         <li><a href="graphs.php">My Graphs</a></li>
         <li><a href="notes.php">My Notes</a></li>
-        <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Help<span class="caret"></span></a>
+        <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">More<span class="caret"></span></a>
         <ul class="dropdown-menu">
 		  <li><a href="help">Help</a></li>
           <li><a href="myAccount">My Account</a></li>
@@ -48,6 +54,8 @@
 		</li>
 	</div>
       </ul>
+      <?php
+      }?>
     </div>
   </div>
 </nav>
@@ -68,7 +76,7 @@
            </h4>
          </div>
          <div id="collapse1" class="panel-collapse collapse">
-           <div class="panel-body">If you have looked through all the categorys and test and you
+           <div class="panel-body" name="collapse1">If you have looked through all the categorys and test and you
              can't find the one you need you can request it through the request new test button
              on the input results page </div>
          </div>
@@ -80,7 +88,7 @@
            </h4>
          </div>
          <div id="collapse2" class="panel-collapse collapse">
-           <div class="panel-body">If you have looked through all the categorys and test and you
+           <div class="panel-body" name="collapse2">If you have looked through all the categorys and test and you
              can't find the one you need you can request it through the request new test button
              on the input results page </div>
          </div>
@@ -92,7 +100,7 @@
            </h4>
          </div>
          <div id="collapse3" class="panel-collapse collapse">
-           <div class="panel-body">You can request it through the request new test button
+           <div class="panel-body" name="collapse3">You can request it through the request new test button
              on the input results page </div>
          </div>
        </div>
@@ -103,7 +111,7 @@
            </h4>
          </div>
          <div id="collapse4" class="panel-collapse collapse">
-           <div class="panel-body">You can ask your healthcare provide which range to use, if the range isn't included
+           <div class="panel-body" name="collapse4">You can ask your healthcare provide which range to use, if the range isn't included
               on the list for that test, you can request it through the request new test button
                 on the input results page </div>
          </div>
@@ -118,7 +126,7 @@
            </h4>
          </div>
          <div id="collapse5" class="panel-collapse collapse">
-           <div class="panel-body">Go to the results page and make sure there is a result
+           <div class="panel-body" name="collapse5">Go to the results page and make sure there is a result
               added for that test, if you think there is a problem report it using the Contact Us link </div>
          </div>
        </div>
@@ -129,7 +137,7 @@
            </h4>
          </div>
          <div id="collapse6" class="panel-collapse collapse">
-           <div class="panel-body">Unfortunatelty this isn't possible yet, but we are working on it </div>
+           <div class="panel-body" name="collapse6">Unfortunatelty this isn't possible yet, but we are working on it </div>
          </div>
        </div>
        <div class="panel panel-default">
@@ -139,7 +147,7 @@
            </h4>
          </div>
          <div id="collapse7" class="panel-collapse collapse">
-           <div class="panel-body">This green area shows the normal range for each graph and it appears when
+           <div class="panel-body" name="collapse7">This green area shows the normal range for each graph and it appears when
              the graph is showing two or more results for a test </div>
          </div>
        </div>
@@ -150,11 +158,60 @@
            </h4>
          </div>
          <div id="collapse8" class="panel-collapse collapse">
-           <div class="panel-body">Yes you can hover over the graph to find details of individual results </div>
+           <div class="panel-body" name="collapse8">Yes you can hover over the graph to find details of individual results </div>
          </div>
        </div>
      </div>
-</div>
+     <h3>Login/Register</h3>
+     <div class="panel-group">
+       <div class="panel panel-default">
+         <div class="panel-heading">
+           <h4 class="panel-title">
+             <a data-toggle="collapse" href="#collapse9">What happens if I forget my password?</a>
+           </h4>
+         </div>
+         <div id="collapse9" class="panel-collapse collapse">
+           <div class="panel-body" name="collapse9">If you have forgotten your password you can reset it using the forgot
+          password link on the login page </div>
+         </div>
+       </div>
+       <div class="panel panel-default">
+         <div class="panel-heading">
+           <h4 class="panel-title">
+             <a data-toggle="collapse" href="#collapse10">Why do I need to provide my date of birth?</a>
+           </h4>
+         </div>
+         <div id="collapse10" class="panel-collapse collapse">
+           <div class="panel-body" name="collapse10">This is used to verify that you are over 18 </div>
+         </div>
+       </div>
+       <div class="panel panel-default">
+         <div class="panel-heading">
+           <h4 class="panel-title">
+             <a data-toggle="collapse" href="#collapse11">Why do I need to provide my Postcode?</a>
+           </h4>
+         </div>
+         <div id="collapse11" class="panel-collapse collapse">
+           <div class="panel-body" name="collapse11">This is used to verify your identity incase you forget your password </div>
+         </div>
+       </div>
+    </div>
+    <h3>Notes</h3>
+    <div class="panel-group">
+      <div class="panel panel-default">
+         <div class="panel-heading">
+           <h4 class="panel-title">
+             <a data-toggle="collapse" href="#collapse12">What are notes used for?</a>
+           </h4>
+         </div>
+         <div id="collapse12" class="panel-collapse collapse">
+           <div class="panel-body" name="collapse12">Notes are used to show any changes in your life that might have affected your
+             blood results for example life events, medication changes or hospital admissions</div>
+         </div>
+       </div>
+     </div>
+     </div>
+
 <footer class="container-fluid">
   <div class="col-sm-4 col-xs-4 col-md-4 col-lg-4 text-left">
      <h5> Useful Links </h5>

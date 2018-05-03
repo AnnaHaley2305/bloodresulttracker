@@ -111,7 +111,7 @@
 			<form id="forgot-form" action="forgotPassword.php" name="forgotPassword" method="post" role="form" style="display: block;">
 				<div class="form-group">
 			 		<label for="username">Username:</label>
-					<input type="text" name="username" id="username" class="form-control" placeholder="Username" required>
+					<input type="text" name="username" id="username" class="form-control" placeholder="Username" required minlength="2" maxlength="20">
 				</div>
 				<div class="form-group">
 			 		<label for="dob"><span style="color:red">* </span>Date of Birth:</label>
@@ -120,7 +120,7 @@
 				<div class="form-group">
 	 			 <label for="postcode"><span style="color:red">* </span>Postcode:</label>
 	 					<input type="text" name="postcode" id="postcode" class="form-control" placeholder="Postcode" required
-						pattern="[A-Za-z]{1,2}[0-9Rr][0-9A-Za-z]? [0-9][ABD-HJLNP-UW-Zabd-hjlnp-uw-z]{2}$"
+						pattern="[A-Za-z]{1,2}[0-9][0-9A-Za-z]? [0-9][ABD-HJLNP-UW-Zabd-hjlnp-uw-z]{2}$"
 						oninvalid="this.setCustomValidity('Please provide a valid UK Postcode')"
 						oninput="this.setCustomValidity('')">
 	 				</div>
@@ -128,7 +128,7 @@
 					<div class="row">
 						<div class="col-sm-6 col-sm-offset-3">
 				  			<input type="hidden" name="action" value="forgotPassword">
-							<input type="submit" name="forgot-submit" id="forgot-submit" class="form-control btn-info" value="Check Details">
+							<button type="submit" name="forgot-submit" id="forgot-submit" class="form-control btn-success" ><span class='glyphicon glyphicon-ok'></span> Check Details</button>
 						</div>
 					</div>
 				</div>

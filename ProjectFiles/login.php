@@ -184,6 +184,7 @@
   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
   <script type="text/javascript" src="https://www.google.com/jsapi"></script>
   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+  <script src="js/userInfo" type="text/javascript"></script>
 </head>
 <body id="loginPage" >
 
@@ -218,7 +219,7 @@
 
 <div class="container">
 <div class="row">
-<div class="col-md-6 col-md-offset-3">
+<div class="col-md-6 col-md-offset-3 col-lg-6 col-lg-offset-3 col-sm-12 col-xs-12">
 	<div class="panel panel-info">
 		<div class="panel-heading text-center">
 			<div class="row">
@@ -237,17 +238,17 @@
 			<form id="login-form" action="login.php" name="login" method="post" role="form" style="display: block;">
 				<div class="form-group">
 			 <label for="username">Username:</label>
-					<input type="text" name="username" id="login-username" tabindex="1" class="form-control" placeholder="Username" value="" required>
+					<input type="text" name="username" id="login-username" tabindex="1" class="form-control" placeholder="Username" required minlength="2" maxlength="20">
 				</div>
 				<div class="form-group">
 			 		<label for="password">Password:</label>
-					<input type="password" name="password" id="login-password" tabindex="2" class="form-control" placeholder="Password" required>
+					<input type="password" name="password" id="login-password" tabindex="2" class="form-control" placeholder="Password" required minlength="2" maxlength="20">
 				</div>
 				<div class="form-group">
 					<div class="row">
 						<div class="col-sm-6 col-sm-offset-3">
 				  			<input type="hidden" name="action" value="login">
-							<input type="submit" name="login-submit" id="login-submit" tabindex="4" class="form-control btn-info" value="Log In">
+							<button type="submit" name="login-submit" id="login-submit" tabindex="4" class="form-control btn-success" ><span class='glyphicon glyphicon-ok'></span> Login</button>
 						</div>
 					</div>
 				</div>
@@ -256,15 +257,20 @@
 						<div class="col-lg-12">
 							<div class="text-center">
 								<a href="forgotPassword.php" tabindex="5" class="forgot-password">Forgot Password?</a>
+								<a href="#loginHelp" data-toggle="collapse" class="glyphicon glyphicon-info-sign"></a>
+								<div id="loginHelp" class="collapse"> If you have forgotten your password, click 'Forgot Password?'.
+									If you are not registered please click 'Register' and fill in the form.
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
+				<div><a href="help.php"> Help Page</a></div>
 			</form>
 			<form id="register-form" action="login.php" method="post" role="form" style="display: none;">
 				<div class="form-group">
 			 <label for="username"><span style="color:red">* </span>Username:  <p style="color:red; font-size:10px">This will be your login username</p></label>
-					<input type="text" name="username" id="register-username" class="form-control" placeholder="Username" value="" required>
+					<input type="text" name="username" id="register-username" class="form-control" placeholder="Username"  required minlength="2" maxlength="20">
 				</div>
 				<div class="form-group">
 			 <label for="password"><span style="color:red">* </span>Password:</label>
@@ -276,14 +282,16 @@
 				</div>
 		  <div class="form-group">
 			 <label for="firstname"><span style="color:red">* </span>Name:</label>
-					<input type="text" name="firstname" id="firstname" class="form-control" placeholder="First Name" required onkeyup = "Validate(this)">
+					<input type="text" name="firstname" id="firstname" class="form-control" placeholder="First Name" minlength="2" maxlength="20" required onkeyup = "Validate(this)">
 				</div>
 		  <div class="form-group">
-					<input type="text" name="secondname" id="secondname" class="form-control" placeholder="Surname" required onkeyup = "Validate(this)">
+					<input type="text" name="secondname" id="secondname" class="form-control" placeholder="Surname" minlength="2" maxlength="20" required onkeyup = "Validate(this)">
 				</div>
 		  <div class="form-group">
-			 <label for="date"><span style="color:red">* </span>Date Of Birth:</label>
+			 <label for="date"><span style="color:red">* </span>Date Of Birth: </label><a href="#dateHelp" data-toggle="collapse" class="glyphicon glyphicon-info-sign"></a>
 					<input type="date" name="dob" id="dob" class="form-control" placeholder="yyyy-mm-dd" value="1970-01-01"required onchange="validateDate()">
+					<div id="dateHelp" class="collapse"> You must be 18 in order to use this site
+	  			 </div>
 				</div>
 		  <div class="form-group">
 			 <label for="gender"><span style="color:red">* </span>Gender:</label>
@@ -295,7 +303,7 @@
 				<div class="form-group">
 	 			 <label for="postcode"><span style="color:red">* </span>Postcode:</label>
 	 					<input type="text" name="postcode" id="postcode" class="form-control" placeholder="Postcode" required
-						pattern="[A-Za-z]{1,2}[0-9Rr][0-9A-Za-z]? [0-9][ABD-HJLNP-UW-Zabd-hjlnp-uw-z]{2}$"
+						pattern="[A-Za-z]{1,2}[0-9][0-9A-Za-z]? [0-9][ABD-HJLNP-UW-Zabd-hjlnp-uw-z]{2}$"
 						oninvalid="this.setCustomValidity('Please provide a valid UK Postcode')"
 						oninput="this.setCustomValidity('')">
 	 				</div>
@@ -303,7 +311,7 @@
 					<div class="row">
 						<div class="col-sm-6 col-sm-offset-3">
 				  <input type="hidden" name="action" value="register">
-							<input type="submit" name="register-submit" id="register-submit" tabindex="4" class="form-control btn btn-info" value="Register Now">
+							<button type="submit" name="register-submit" id="register-submit" tabindex="4" class="form-control btn btn-success" ><span class='glyphicon glyphicon-ok'></span> Register Now</button>
 						</div>
 					</div>
 				</div>
@@ -317,72 +325,4 @@
 </div>
 
 </body>
-<script type="text/javascript">
-$(function() {
-
-	 $('#login-form-link').click(function(e) {
-		$("#login-form").delay(100).fadeIn(100);
-		$("#register-form").fadeOut(100);
-		$('#register-form-link').removeClass('active');
-		$(this).addClass('active');
-		e.preventDefault();
-	});
-	$('#register-form-link').click(function(e) {
-		$("#register-form").delay(100).fadeIn(100);
-		$("#login-form").fadeOut(100);
-		$('#login-form-link').removeClass('active');
-		$(this).addClass('active');
-		e.preventDefault();
-	});
-
-});
-
-
-function checkPasswords()
-{
-    var password = document.getElementById("register-password");
-    var passwordConfirm= document.getElementById("confirm-password");
-    var message = document.getElementById("message");
-    if(password.value == passwordConfirm.value){
-		  passwordConfirm.setCustomValidity('');
-        message.innerHTML = "<span class=\"alert alert-success\" style=\"margin-top: 15px; padding: 0;\">Passwords Match</span>";
-		  return true;
-    }else{
-		  passwordConfirm.setCustomValidity("Passwords Don't Match");
-        message.innerHTML = "<span class=\"alert alert-danger\" style=\"margin-top: 15px; padding: 0;\">Passwords Don't Match</span>";
-		  return false;
-    }
-}
-function Validate(text) {
-    text.value = text.value.replace(/[^a-zA-Z-'\n\r.]+/g, '');
-}
-
-function validateDate()
-{
-	 var dobPicker = document.getElementById("dob");
-    var dob = dobPicker.value;
-    var age = GetAge(dob);
-    if (age < 18) {
-        dobPicker.setCustomValidity("You must be over 18 to use this website");
-		  return false;
-	  }
-	  else{
-		  dobPicker.setCustomValidity('');
-		  return true;
-	  }
-}
-
-function GetAge(birthDate) {
-    var today = new Date();
-	 var birth = new Date(birthDate)
-    var age = today.getFullYear() - birth.getFullYear();
-    var month = today.getMonth() - birth.getMonth();
-    if (month < 0 || (month === 0 && today.getDate() < birth.getDate()))
-	 {
-        age--;
-    }
-    return age;
-}
-
-</script>
 </html>

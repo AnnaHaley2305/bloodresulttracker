@@ -1,4 +1,4 @@
-<?php   include ("dbConnect.php");
+<?php   include ("resources/dbConnect.php");
 
 	session_start();
   if (!isset($_SESSION['currentUserID']))
@@ -6,8 +6,8 @@
 	 header("Location: login.php");
   }
 
-  	  $timeline="false";
-  	  $quality="false";
+	  $timeline="false";
+	  $quality="false";
 	  if (isset($_POST["test"])) {
 			$testID=$_POST["test"];
 			$userID=$_SESSION["currentUserID"];
@@ -23,7 +23,7 @@
 				if($dbQuery2)
 				{
 					if ($dbQuery->rowCount()>0)
-				  	{
+					{
 						$timeline="true";
 						if ($dbQuery->rowCount()>1)
 						{
@@ -39,7 +39,7 @@
 								array('label' => 'Lower Range', 'type' => 'number',),
 								array('label' => 'Range', 'type' => 'number'),
 								array('label' => 'Upper Range', 'type' => 'number',),
-							   array('label' => $testName, 'type' => 'number')
+								array('label' => $testName, 'type' => 'number')
 							),//graph column label and types
 							'rows' => array()
 						);// array for row data
@@ -68,19 +68,19 @@
 				}
 				else {
 					$message = "Oops, Something went wrong! Error";
-		 			$errors = $dbQuery2->errorInfo();
-		 			$userError = $errors[2];
-		 			echo "<script type='text/javascript'>alert('$message.' '.$userError');</script>";
-		 			header("Location: graphs.php");
+					$errors = $dbQuery2->errorInfo();
+					$userError = $errors[2];
+					echo "<script type='text/javascript'>alert('$message.' '.$userError');</script>";
+					header("Location: graphs.php");
 				}
 			 }
 			 else
 			 {
 					$message = "Oops, Something went wrong! Error";
-	 				$errors = $dbQuery->errorInfo();
-	 				$userError = $errors[2];
-	 				echo "<script type='text/javascript'>alert('$message.' '.$userError');</script>";
-	 				header("Location: graphs.php");
+					$errors = $dbQuery->errorInfo();
+					$userError = $errors[2];
+					echo "<script type='text/javascript'>alert('$message.' '.$userError');</script>";
+					header("Location: graphs.php");
 			 }
 
 		}
@@ -152,7 +152,7 @@
 
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <link rel="stylesheet" href="css/stylesheet.css">
-  <link rel="icon" href="images/heart-beat-icon.png">
+  <link rel="icon" href="img/heart-beat-icon.png">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
@@ -160,24 +160,23 @@
   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
   <script type="text/javascript">
 
-  		  google.charts.load('current', {'packages':['corechart','controls', 'timeline']});
+		  google.charts.load('current', {'packages':['corechart','controls', 'timeline']});
 
 		  google.charts.setOnLoadCallback(drawLineChart);
 		  google.charts.setOnLoadCallback(drawNoteChart);
 
 		 function drawLineChart() {
-  		 var data = new google.visualization.DataTable(<?=$json_timeline?>);//retrieves the php data
+		 var data = new google.visualization.DataTable(<?=$json_timeline?>);
 		 var rangeFilter = new google.visualization.ControlWrapper({
 			  controlType: 'DateRangeFilter',
 					containerId: 'control_timeline',
 					options: {
-					// Filter by the date axis.
 					filterColumnIndex: 0,
 						 ui: {
 									step: 'day',
 									format: 'M/d/yy',
 									labelStacking: 'vertical',
-								 	label: 'Timeline :',
+									label: 'Timeline :',
 							 },
 						chartView: {
 							 columns: [0]
@@ -185,39 +184,35 @@
 					}
 		 });
 
-      var chart = new google.visualization.ChartWrapper({
-          chartType: 'ComboChart',
-          containerId: 'timeline',
-          options: {
-              // width and chartArea.width should be the same for the filter and chart
-            legend: {position: 'bottom'},
+		var chart = new google.visualization.ChartWrapper({
+			 chartType: 'ComboChart',
+			 containerId: 'timeline',
+			 options: {
+				legend: {position: 'bottom'},
 				isStacked: true,
-  				height: 400,
-            width: '100%',
-            chartArea: {
-               width: '100%',
+				height: 400,
+				width: '100%',
+				chartArea: {
+					width: '100%',
 					left:40,
-  					top:5,
-            },
-  				colors: ['#C8A2C8'],// line colour
-  				animation: {
-  					duration: 500,
-  					startup: true //This is the new option
-  				},
+					top:5,
+				},
+				colors: ['#C8A2C8'],
+				animation: {
+					duration: 500,
+					startup: true
+				},
 				series: {
 						0: {	type: 'area', color: 'transparent',	visibleInLegend: 'false'},
 						1: {	type: 'line', color: '#00FF00', visibleInLegend: 'false' },
 						2: { type: 'area', color: '#DDF3CA', labelInLegend: 'Normal Range'},
 						3: { type: 'line', color: '#00FF00', visibleInLegend: 'false' },
-						4: {	type: 'line', color: '#C8A2C8'},
+						4: {	type: 'line', color: '#BF47FF'},
 					}
-          }
-      });
+			 }
+		});
 
-      // Create the dashboard
-      var dash = new google.visualization.Dashboard(document.getElementById('dashboard_timeline'));
-      // bind the chart to the filter
-
+		var dash = new google.visualization.Dashboard(document.getElementById('dashboard_timeline'));
 		google.visualization.events.addListener(chart, 'ready', function () {
 		var div = document.getElementById('timelinePng');
 		div.innerHTML = "";
@@ -232,61 +227,61 @@
 
 	});
 
-      dash.bind([rangeFilter], [chart]);
+		dash.bind([rangeFilter], [chart]);
 		dash.draw(data);
 
 		$(document).ready(function () {
 		$(window).resize(function() {  // reference dashboard instance
-         dash.draw(data);
- 			});
+			dash.draw(data);
 			});
-  		}
+			});
+		}
 
 		 function drawNoteChart() {
 			 var data = new google.visualization.DataTable(<?=$json_note?>);//retrieves the php data
 			 var dashboard = new google.visualization.Dashboard(
-                document.getElementById('dashboard_note'));
-                var control = new google.visualization.ControlWrapper({
-                    controlType: 'DateRangeFilter',
-                        containerId: 'control_note',
-                        options: {
-                        // Filter by the date axis.
+					 document.getElementById('dashboard_note'));
+					 var control = new google.visualization.ControlWrapper({
+						  controlType: 'DateRangeFilter',
+								containerId: 'control_note',
+								options: {
+								// Filter by the date axis.
 								filterColumnIndex: 1,
 								filterColumnLabel: 'Date',
-               			ui: {
+								ui: {
 									labelStacking: 'vertical',
-								 	label: 'Timeline :',
+									label: 'Timeline :',
 									format: 'MM/yy'}
-          					}
-                });
+								}
+					 });
 
-                var chart = new google.visualization.ChartWrapper({
-                    chartType: 'Timeline',
-                        containerId: 'note',
-                        options: {
-                        	 width: '100%',
-                            height: '100%',
-                            chartArea: {
-                            		width: '100%',
-                            		height: '100%'
-                        	},
+					 var chart = new google.visualization.ChartWrapper({
+						  chartType: 'Timeline',
+								containerId: 'note',
+								options: {
+									 width: '100%',
+									 height: data.getNumberOfRows()*50+50,
+									 chartArea: {
+											width: '100%',
+											height: '100%'
+									},
 								 timeline: { groupByRowLabel: false }
-                    },
-                        view: {
-                        	columns: [0, 1, 2]
-                    }
+						  },
+								view: {
+									columns: [0, 1, 2]
+						  }
 
-                });
+					 });
 					 dashboard.bind([control], [chart]);
 
 					 dashboard.draw(data);
 
 					 $(document).ready(function () {
 					 $(window).resize(function() {  // reference dashboard instance
-			          dashboard.draw(data);
-			  		});
+						 dashboard.draw(data);
+					});
 
-	    });
+		 });
 	 }
 
 	 </script>
@@ -301,7 +296,7 @@
 		  <span class="icon-bar"></span>
 		  <span class="icon-bar"></span>
 		</button>
-		<a class="navbar-brand" href="homepage.php"><img src="images/Logo3" width="250" height="30"></a>
+		<a class="navbar-brand" href="homepage.php"><img src="img/Logo3" width="250" height="30"></a>
 	 </div>
 	 <div class="collapse navbar-collapse" id="myNavbar">
 		<ul class="nav navbar-nav navbar-right">
@@ -310,16 +305,17 @@
 		  <ul class="dropdown-menu">
 			 <li><a href="inputResults">Input Results</a></li>
 			 <li><a href="results">Show Results</a></li>
+			 <li><a href="archive">Archive</a></li>
 		  </ul>
 		</li>
 		  <li><a href="graphs.php">My Graphs</a></li>
 		  <li><a href="notes.php">My Notes</a></li>
-		  <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Help <span class="caret"></span></a>
+		  <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">More <span class="caret"></span></a>
 		  <ul class="dropdown-menu">
 		  <li><a href="help">Help</a></li>
 			 <li><a href="myAccount">My Account</a></li>
 			 <li><a href="logout">Logout</a></li>
-		  
+
 		  </ul>
 		</li>
 	</div>
@@ -348,8 +344,8 @@
 					{
 						$tests[$testID] = $testName;
 					}
-			   }
-		  	}
+				}
+			}
 			else
 			{
 				$message = "Oops, Something went wrong! Error";
@@ -369,7 +365,7 @@ $(document).ready(function () {
 	var quality =<?php echo $quality;?>;
 
 	if (timeline==true) {
-   	$("#timelineDiv").show();
+		$("#timelineDiv").show();
 		if (quality==false)
 		{
 			$("#qualityDiv").show();
@@ -377,7 +373,7 @@ $(document).ready(function () {
 		else {
 			$("#qualityDiv").hide();
 		}
-   } else {
+	} else {
 		$("#timelineDiv").hide();
 	}
 	if(note==true) {
@@ -434,15 +430,15 @@ $(document).ready(function () {
 								}?>
 					  </select>
 			  </div>
-			 <button type="submit" name="submit"class="btn btn-success">Submit</button>
+			 <button type="submit" name="submit"class="btn btn-success"><span class='glyphicon glyphicon-search'></span> Submit</button>
 			</div>
 		 </fieldset>
 	  </form>
 	  <p>Choose a test from the list and press submit</p>
 	  </div>
 	<div class="row" id="timelineDiv">
-	<h1>Timeline</h1>
-	 <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
+	<legend>Timeline</legend>
+	 <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
 		 <p>Here you can view a timeline of your results for each test.</p>
 		 <p>The green lines show the normal range for each test and the purple line shows your results.</p>
 		 <div id="dashboard_timeline" class="embed-responsive-item">
@@ -451,15 +447,15 @@ $(document).ready(function () {
 		</div>
 		<p> You can change the time period on the graph using this slider</p>
 	  </div>
-	  <div class="col-lg-1 col-md-2 col-sm-12 col-xs-12" id="qualityDiv">
-		  <h2 class="alert alert-info"> Looks like you only have one result for this test,
+	  <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12" id="qualityDiv">
+		  <p class="alert alert-info"> Looks like you only have one result for this test,
 			  the timeline feature works best with more than one result!
 			  If you would like to add another result click below.
-		  </h2>
+		  </p>
 			<a class="btn btn-success" href="inputResults.php">
 				<span class="glyphicon glyphicon-edit"></span> Add More Results</a>
 	 </div>
-	  <div class="col-lg-1 col-md-2 col-sm-12 col-xs-12">
+	  <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
 		  <br />
 		  <p>	This will download and save a picture of the timeline graph to your computer as it looks now </p>
 		<div id="timelinePng"></div>
@@ -467,7 +463,7 @@ $(document).ready(function () {
 </div>
 
 <div class="row" id="noteDiv">
-	<h1>Notes</h1>
+	<legend>Notes</legend>
 	<p>This is a timeline of the notes you have made</p>
 	 <div class="col-lg-10 col-sm-12 col-xs-12">
 		 <div id="dashboard_note" class="embed-responsive-item">
@@ -475,12 +471,14 @@ $(document).ready(function () {
 			<div id="control_note" class="embed-repsonsive-item"></div>
 	  </div>
 	 </div>
+ </div>
+ <div class="row">
 	 <p> You can change the time period for the notes shown using this slider</p>
 </div>
 <div class="row" id="noNotes">
-	<h2 class="alert alert-warning">Looks like you don't have any notes to display yet,
-	to add some notes please click below!</h2>
-	<a class="btn btn-success" href="inputResults.php">
+	<p class="alert alert-warning">Looks like you don't have any notes to display yet,
+	to add some notes please click below!</p>
+	<a class="btn btn-success" href="notes.php">
 	<span class="glyphicon glyphicon-edit"></span> Add More Notes</a>
 </div>
 	</div>
