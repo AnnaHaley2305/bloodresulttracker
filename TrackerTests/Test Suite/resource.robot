@@ -3,8 +3,8 @@ Documentation     A resource file with reusable keywords and variables.
 ...
 ...               The system specific keywords created here form our own
 ...               domain specific language. They utilize keywords provided
-...               by the imported Selenium2Library.
-Library           Selenium2Library
+...               by the imported ExtendedSelenium2Library.
+Library           ExtendedSelenium2Library
 
 *** Variables ***
 ${website}    http://mybloodresulttracker.co.uk/
@@ -17,12 +17,21 @@ ${validUserDOB}         03101994
 *** Keywords ***
 Open Browser To Login Page
     Open Browser    ${website}    ${browser}
+    Set Selenium Implicit Wait    0.5
     Maximize Browser Window
     Page ID Should Be   loginPage
 
 Open Browser To Login Page and Login
     Open Browser To Login Page
     Login
+
+Open Browser To Login Page and Login with admin
+    Open Browser To Login Page
+    Input Username    admin1
+    Input Password    securePassword
+    Submit Login
+    Page ID Should Be    editTests
+    
 
 Page ID Should Be
     [Arguments]    ${contains}
@@ -41,7 +50,7 @@ Input Password
     Input text    login-password    ${password}
     
 Submit Login
-    Click Button    login-submit
+    Click Element    login-submit    True
 
 Login
     Go To Page     login.php

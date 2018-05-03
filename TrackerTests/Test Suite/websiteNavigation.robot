@@ -1,10 +1,46 @@
 *** Settings ***
-Library     Selenium2Library
+Library     ExtendedSelenium2Library
 Resource    resource.robot
 Suite Setup    Open browser to login page
 Suite Teardown    Close browser
 Test Setup    Go To Page    homepage.php
 
+*** Keywords ***
+Check all links from page  
+    [Arguments]   ${page}
+    Login
+    Go To Page    ${page}
+    Click Link    My Results
+    Click Link    archive
+    Page ID Should Be    archivePage
+    Go To Page    ${page}
+    Click Link    More
+    Click Link    help
+    Page ID Should Be    helpPage
+    Go To Page    ${page}
+    Click Link    graphs.php
+    Page ID Should Be    graphPage
+    Go To Page    ${Page}
+    Click Link   My Results
+    Click Link   inputResults
+    Page ID Should Be    inputResultsPage
+    Go To Page    ${page}
+    Click Link   More
+    Click Link   myAccount
+    Page ID Should Be    myAccountPage
+    Click Link    notes.php
+    Page ID Should Be    notesPage
+    Go To Page    ${page}
+    Click Link    My Results
+    Click Link    results
+    Page ID Should Be    resultsPage
+    Go To Page    ${page}
+    Click Link    My Dashboard
+    Page ID Should Be    homepagePage
+    Go To Page    ${page}
+    Click Image    img/Logo3
+    Page ID Should Be    homepagePage
+    
 *** Test Cases ***
 Navigate to archive once logged in as user
     Login
@@ -91,4 +127,20 @@ Navigate to results once logged in as user using buttons
     Click Link    My Results
     Click Link    results
     Page ID Should Be    resultsPage
-    
+ 
+Archive Check
+    Check all links from page    archive.php  
+Graphs
+    Check all links from page    graphs.php
+Homepage
+    Check all links from page    homepage.php
+Input Results
+    Check all links from page    inputResults.php
+Help 
+    Check all links from page    help.php
+My Account
+    Check all links from page    myAccount.php
+Notes
+    Check all links from page    notes.php
+Results   
+    Check all links from page    results.php    

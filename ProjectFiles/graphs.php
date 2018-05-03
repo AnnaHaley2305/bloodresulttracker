@@ -6,8 +6,8 @@
 	 header("Location: login.php");
   }
 
-  	  $timeline="false";
-  	  $quality="false";
+	  $timeline="false";
+	  $quality="false";
 	  if (isset($_POST["test"])) {
 			$testID=$_POST["test"];
 			$userID=$_SESSION["currentUserID"];
@@ -23,7 +23,7 @@
 				if($dbQuery2)
 				{
 					if ($dbQuery->rowCount()>0)
-				  	{
+					{
 						$timeline="true";
 						if ($dbQuery->rowCount()>1)
 						{
@@ -39,7 +39,7 @@
 								array('label' => 'Lower Range', 'type' => 'number',),
 								array('label' => 'Range', 'type' => 'number'),
 								array('label' => 'Upper Range', 'type' => 'number',),
-							   array('label' => $testName, 'type' => 'number')
+								array('label' => $testName, 'type' => 'number')
 							),//graph column label and types
 							'rows' => array()
 						);// array for row data
@@ -68,19 +68,19 @@
 				}
 				else {
 					$message = "Oops, Something went wrong! Error";
-		 			$errors = $dbQuery2->errorInfo();
-		 			$userError = $errors[2];
-		 			echo "<script type='text/javascript'>alert('$message.' '.$userError');</script>";
-		 			header("Location: graphs.php");
+					$errors = $dbQuery2->errorInfo();
+					$userError = $errors[2];
+					echo "<script type='text/javascript'>alert('$message.' '.$userError');</script>";
+					header("Location: graphs.php");
 				}
 			 }
 			 else
 			 {
 					$message = "Oops, Something went wrong! Error";
-	 				$errors = $dbQuery->errorInfo();
-	 				$userError = $errors[2];
-	 				echo "<script type='text/javascript'>alert('$message.' '.$userError');</script>";
-	 				header("Location: graphs.php");
+					$errors = $dbQuery->errorInfo();
+					$userError = $errors[2];
+					echo "<script type='text/javascript'>alert('$message.' '.$userError');</script>";
+					header("Location: graphs.php");
 			 }
 
 		}
@@ -160,24 +160,23 @@
   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
   <script type="text/javascript">
 
-  		  google.charts.load('current', {'packages':['corechart','controls', 'timeline']});
+		  google.charts.load('current', {'packages':['corechart','controls', 'timeline']});
 
 		  google.charts.setOnLoadCallback(drawLineChart);
 		  google.charts.setOnLoadCallback(drawNoteChart);
 
 		 function drawLineChart() {
-  		 var data = new google.visualization.DataTable(<?=$json_timeline?>);//retrieves the php data
+		 var data = new google.visualization.DataTable(<?=$json_timeline?>);
 		 var rangeFilter = new google.visualization.ControlWrapper({
 			  controlType: 'DateRangeFilter',
 					containerId: 'control_timeline',
 					options: {
-					// Filter by the date axis.
 					filterColumnIndex: 0,
 						 ui: {
 									step: 'day',
 									format: 'M/d/yy',
 									labelStacking: 'vertical',
-								 	label: 'Timeline :',
+									label: 'Timeline :',
 							 },
 						chartView: {
 							 columns: [0]
@@ -185,25 +184,24 @@
 					}
 		 });
 
-      var chart = new google.visualization.ChartWrapper({
-          chartType: 'ComboChart',
-          containerId: 'timeline',
-          options: {
-              // width and chartArea.width should be the same for the filter and chart
-            legend: {position: 'bottom'},
+		var chart = new google.visualization.ChartWrapper({
+			 chartType: 'ComboChart',
+			 containerId: 'timeline',
+			 options: {
+				legend: {position: 'bottom'},
 				isStacked: true,
-  				height: 400,
-            width: '100%',
-            chartArea: {
-               width: '100%',
+				height: 400,
+				width: '100%',
+				chartArea: {
+					width: '100%',
 					left:40,
-  					top:5,
-            },
-  				colors: ['#C8A2C8'],// line colour
-  				animation: {
-  					duration: 500,
-  					startup: true //This is the new option
-  				},
+					top:5,
+				},
+				colors: ['#C8A2C8'],
+				animation: {
+					duration: 500,
+					startup: true
+				},
 				series: {
 						0: {	type: 'area', color: 'transparent',	visibleInLegend: 'false'},
 						1: {	type: 'line', color: '#00FF00', visibleInLegend: 'false' },
@@ -211,13 +209,10 @@
 						3: { type: 'line', color: '#00FF00', visibleInLegend: 'false' },
 						4: {	type: 'line', color: '#BF47FF'},
 					}
-          }
-      });
+			 }
+		});
 
-      // Create the dashboard
-      var dash = new google.visualization.Dashboard(document.getElementById('dashboard_timeline'));
-      // bind the chart to the filter
-
+		var dash = new google.visualization.Dashboard(document.getElementById('dashboard_timeline'));
 		google.visualization.events.addListener(chart, 'ready', function () {
 		var div = document.getElementById('timelinePng');
 		div.innerHTML = "";
@@ -232,61 +227,61 @@
 
 	});
 
-      dash.bind([rangeFilter], [chart]);
+		dash.bind([rangeFilter], [chart]);
 		dash.draw(data);
 
 		$(document).ready(function () {
 		$(window).resize(function() {  // reference dashboard instance
-         dash.draw(data);
- 			});
+			dash.draw(data);
 			});
-  		}
+			});
+		}
 
 		 function drawNoteChart() {
 			 var data = new google.visualization.DataTable(<?=$json_note?>);//retrieves the php data
 			 var dashboard = new google.visualization.Dashboard(
-                document.getElementById('dashboard_note'));
-                var control = new google.visualization.ControlWrapper({
-                    controlType: 'DateRangeFilter',
-                        containerId: 'control_note',
-                        options: {
-                        // Filter by the date axis.
+					 document.getElementById('dashboard_note'));
+					 var control = new google.visualization.ControlWrapper({
+						  controlType: 'DateRangeFilter',
+								containerId: 'control_note',
+								options: {
+								// Filter by the date axis.
 								filterColumnIndex: 1,
 								filterColumnLabel: 'Date',
-               			ui: {
+								ui: {
 									labelStacking: 'vertical',
-								 	label: 'Timeline :',
+									label: 'Timeline :',
 									format: 'MM/yy'}
-          					}
-                });
+								}
+					 });
 
-                var chart = new google.visualization.ChartWrapper({
-                    chartType: 'Timeline',
-                        containerId: 'note',
-                        options: {
-                        	 width: '100%',
-                            height: data.getNumberOfRows()*50+50,
-                            chartArea: {
-                            		width: '100%',
-                            		height: '100%'
-                        	},
+					 var chart = new google.visualization.ChartWrapper({
+						  chartType: 'Timeline',
+								containerId: 'note',
+								options: {
+									 width: '100%',
+									 height: data.getNumberOfRows()*50+50,
+									 chartArea: {
+											width: '100%',
+											height: '100%'
+									},
 								 timeline: { groupByRowLabel: false }
-                    },
-                        view: {
-                        	columns: [0, 1, 2]
-                    }
+						  },
+								view: {
+									columns: [0, 1, 2]
+						  }
 
-                });
+					 });
 					 dashboard.bind([control], [chart]);
 
 					 dashboard.draw(data);
 
 					 $(document).ready(function () {
 					 $(window).resize(function() {  // reference dashboard instance
-			          dashboard.draw(data);
-			  		});
+						 dashboard.draw(data);
+					});
 
-	    });
+		 });
 	 }
 
 	 </script>
@@ -349,8 +344,8 @@
 					{
 						$tests[$testID] = $testName;
 					}
-			   }
-		  	}
+				}
+			}
 			else
 			{
 				$message = "Oops, Something went wrong! Error";
@@ -370,7 +365,7 @@ $(document).ready(function () {
 	var quality =<?php echo $quality;?>;
 
 	if (timeline==true) {
-   	$("#timelineDiv").show();
+		$("#timelineDiv").show();
 		if (quality==false)
 		{
 			$("#qualityDiv").show();
@@ -378,7 +373,7 @@ $(document).ready(function () {
 		else {
 			$("#qualityDiv").hide();
 		}
-   } else {
+	} else {
 		$("#timelineDiv").hide();
 	}
 	if(note==true) {

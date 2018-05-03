@@ -1,5 +1,5 @@
 *** Settings ***
-Library     Selenium2Library
+Library     ExtendedSelenium2Library
 Resource    resource.robot
 Suite Setup    Open browser to login page and login
 Suite Teardown    Close browser
@@ -20,7 +20,7 @@ Result date input with future date should fail
    Input Text    results    35
    Input Text    results-decimal    00  
    Press Key    date    12122022
-   Click Button    submit   
+   Click Element    submit    True
    Page ID Should Be    inputResultsPage
   
 Result input with a minus number should fail
@@ -32,7 +32,7 @@ Result input with a minus number should fail
    Input Text    results    -1
    Input Text    results-decimal    00  
    Press Key    date    12122017
-   Click Button    submit   
+   Click Element    submit   True
    Page ID Should Be    inputResultsPage
 
 Result input with value 1000 should fail
@@ -44,7 +44,7 @@ Result input with value 1000 should fail
    Input Text    results    1000
    Input Text    results-decimal    00  
    Press Key    date    12122017
-   Click Button    submit   
+   Click Element    submit   True
    Page ID Should Be    inputResultsPage
 
 Result decimal input with value 100 should fail
@@ -56,7 +56,7 @@ Result decimal input with value 100 should fail
    Input Text    results    10
    Input Text    results-decimal    100
    Press Key    date    12122017
-   Click Button    submit   
+   Click Element    submit   True
    Page ID Should Be    inputResultsPage
 
 Result input with value aa should fail
@@ -68,7 +68,7 @@ Result input with value aa should fail
    Input Text    results    aa
    Input Text    results-decimal    10
    Press Key    date    12122017
-   Click Button    submit   
+   Click Element    submit   True
    Page ID Should Be    inputResultsPage
    
 Result decimal input with value aa should fail
@@ -80,14 +80,14 @@ Result decimal input with value aa should fail
    Input Text    results    10
    Input Text    results-decimal    aa
    Press Key    date    12122017
-   Click Button    submit   
+   Click Element    submit   True
    Page ID Should Be    inputResultsPage
    
 Empty category input should fail
    Input Text    results    35
    Input Text    results-decimal    00  
    Press Key    date    12122022
-   Click Button    submit   
+   Click Element    submit   True
    Page ID Should Be    inputResultsPage
    
 Empty test input should fail
@@ -96,5 +96,19 @@ Empty test input should fail
    Input Text    results    35
    Input Text    results-decimal    00  
    Press Key    date    12122022
-   Click Button    submit   
+   Click Element    submit   True
    Page ID Should Be    inputResultsPage
+   
+Help point Category should toggle
+    Element Should Not Be Visible    categoryHelp
+    Click Link    \#categoryHelp
+    Wait Until Element Is Visible    categoryHelp
+    Click Link    \#categoryHelp   
+    Element Should Not Be Visible    categoryHelp
+    
+Help point Test should toggle
+    Element Should Not Be Visible    testHelp
+    Click Link    \#testHelp
+    Wait Until Element Is Visible    testHelp
+    Click Link    \#testHelp   
+    Element Should Not Be Visible    testHelp

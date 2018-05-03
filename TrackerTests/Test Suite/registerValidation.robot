@@ -1,5 +1,5 @@
 *** Settings ***
-Library     Selenium2Library
+Library     ExtendedSelenium2Library
 Resource    resource.robot
 Suite Setup    Open browser to login page
 Suite Teardown    Close browser
@@ -46,7 +46,7 @@ Register Postcode
     [Arguments]    ${args}
     Input text    postcode    ${args}
 Submit Register
-    Click Button    register-submit
+    Click Element    register-submit    True
     
 *** Test Cases ***
 All values empty should fail

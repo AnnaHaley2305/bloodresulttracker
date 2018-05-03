@@ -1,4 +1,3 @@
-//https://www.w3schools.com/jquery/ajax_ajax.asp
 $(document).ready(function() {
   $("#category").change(function() {
 	 var categoryID = " ";
@@ -61,11 +60,6 @@ $(document).ready(function() {
 	});
 });
 
-$(document).ready(function(){
-    $('[data-toggle="popover"]').popover();
-});
-
-
 function validateDate()
 {
 	var datePicker = document.getElementById("date");
@@ -109,13 +103,3 @@ function validateDates()
            return true;
         }
 }
-
-//https://datatables.net/manual/events
-$(function(){
-  $("#search").on("keyup", function() {
-    var value = $(this).val().toLowerCase();
-    $("#resultsTable tr").filter(function() {
-      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-    });
-  });
-});
